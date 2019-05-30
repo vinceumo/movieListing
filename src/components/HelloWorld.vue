@@ -91,6 +91,7 @@
         >
       </li>
     </ul>
+    <button class="btn is-primary">Test</button>
   </div>
 </template>
 
@@ -117,6 +118,6 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #42b983;
+  color: color(tertiary);
 }
 </style>

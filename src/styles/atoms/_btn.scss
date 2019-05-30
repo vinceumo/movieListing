@@ -1,0 +1,23 @@
+.btn {
+  background-color: color-gray(100);
+  border: 1px solid color-gray(100);
+  color: color-gray(100);
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  text-align: center;
+  white-space: nowrap;
+
+  @each $key, $value in $color-themes {
+    &.is-#{$key} {
+      background-color: color($key);
+      border-color: color($key, dark);
+      color: color($key, contrast);
+
+      &:hover,
+      &:focus {
+        background-color: color($key, dark);
+      }
+    }
+  }
+}

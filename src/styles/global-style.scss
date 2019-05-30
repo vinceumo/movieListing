@@ -1,4 +1,9 @@
+// Variables 
 @import "global-style-resources";
+@import "variables/css-vars-set";
+
+// Vendors
+@import "vendors/normalize";
 
 // Atoms
 @import "atoms/btn";
