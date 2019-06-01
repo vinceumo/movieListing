@@ -6,5 +6,12 @@
 @import "vendors/normalize";
 
 // Atoms
+@import "atoms/a11y/screen-reader";
 @import "atoms/typography/lists";
+@import "atoms/typography/titles";
+@import "atoms/typography/typography-global";
 @import "atoms/btn";
+
+// Layouts
+@import "layouts/container";
+@import "layouts/global";
