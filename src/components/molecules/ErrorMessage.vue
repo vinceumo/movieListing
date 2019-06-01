@@ -2,11 +2,7 @@
   <div class="error-msg">
     <div>
       <h2>{{ copy }}</h2>
-      <img
-        class="img-fluid"
-        v-bind:src="gif"
-        alt="sad annimated gif"
-      />
+      <img class="img-fluid" v-bind:src="gif" alt="sad annimated gif" />
     </div>
   </div>
 </template>

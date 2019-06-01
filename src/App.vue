@@ -3,7 +3,7 @@
     <AppHeader title="Films Showing in Cinemas" />
     <main>
       <FilterBar v-on:ratingValChange="getRatingValue" />
-      <LoadingSpinner  v-if="!hasApiCallError && movies.length === 0"/>
+      <LoadingSpinner v-if="!hasApiCallError && movies.length === 0" />
       <transition name="fade">
         <div v-if="hasApiCallError">
           <ErrorMessage
@@ -16,7 +16,7 @@
           v-bind:movieList="movies"
           v-bind:selectedRating="parseInt(selectedRating)"
         />
-      </transition> 
+      </transition>
     </main>
   </div>
 </template>
@@ -28,6 +28,7 @@ import FilterBar from "./components/organisms/FilterBar";
 import LoadingSpinner from "./components/molecules/LoadingSpinner";
 import MovieListing from "./components/organisms/MovieListing";
 import axios from "axios";
+import cssVars from "css-vars-ponyfill";
 
 export default {
   name: "app",
@@ -42,7 +43,7 @@ export default {
     return {
       movies: [],
       movieGenres: {},
-      country: "GB",
+      country: "GB", // Todo implement country picker
       selectedRating: 0,
       hasApiCallError: false,
       apiCallErrorMsg: ""
@@ -50,6 +51,9 @@ export default {
   },
   created: function() {
     this.getMovieGenresAndMovies();
+  },
+  mounted: function() {
+    cssVars();
   },
   methods: {
     sortObjectBy(property) {

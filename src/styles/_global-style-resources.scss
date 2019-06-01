@@ -1,9 +1,9 @@
-@import "mixins/media-queries";
+@import "variables/support"; // Flags
 
-@import "variables/css-vars-flag";
 @import "variables/breakpoints";
 @import "variables/colors";
 @import "variables/container-sizes";
 @import "variables/font-families";
 @import "variables/font-sizes";
 @import "variables/spacers";
+@import "mixins/media-queries";

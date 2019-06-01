@@ -39,6 +39,7 @@ export default {
   &.has-poster {
     .movie-card-content {
       margin-left: spacer(2);
+      width: 100%;
 
       h2 {
         background-color: color-gray(0);
@@ -55,8 +56,18 @@ export default {
     width: 100px;
     border-radius: 20px;
 
+    @include ie11() {
+      max-width: 100px;
+      min-width: 100px;
+    }
+
     @include min(bp(md)) {
       width: 150px;
+
+      @include ie11() {
+        max-width: 150px;
+        min-width: 150px;
+      }
     }
   }
 

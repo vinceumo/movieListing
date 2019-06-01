@@ -1,4 +1,3 @@
-/*Min and Max mixins*/
 @mixin min($bp, $max: "null", $device: "screen") {
   @if $max == "null" {
     @media only #{$device} and (min-width: #{$bp}) {
@@ -20,5 +19,13 @@
     @media only #{$device} and (max-width: #{$bp}) and (min-width: #{$min}) {
       @content;
     }
+  }
+}
+
+@mixin ie11() {
+  @if $ie11-support {
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      @content;
+    }  
   }
 }
