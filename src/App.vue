@@ -1,18 +1,31 @@
 <template>
   <div id="movieListingApp">
     <AppHeader title="Films Showing in Cinemas" />
-    <FilterBar v-on:ratingValChange="getRatingValue" />
-    <MovieListing
-      v-if="movies.length"
-      v-bind:movieList="movies"
-      v-bind:selectedRating="parseInt(selectedRating)"
-    />
+    <main>
+      <FilterBar v-on:ratingValChange="getRatingValue" />
+      <LoadingSpinner  v-if="!hasApiCallError && movies.length === 0"/>
+      <transition name="fade">
+        <div v-if="hasApiCallError">
+          <ErrorMessage
+            copy="There was an error, please try again"
+            gif="https://media.giphy.com/media/3ohzdYJK1wAdPWVk88/giphy.gif"
+          />
+        </div>
+        <MovieListing
+          v-if="movies.length"
+          v-bind:movieList="movies"
+          v-bind:selectedRating="parseInt(selectedRating)"
+        />
+      </transition> 
+    </main>
   </div>
 </template>
 
 <script>
 import AppHeader from "./components/organisms/AppHeader";
+import ErrorMessage from "./components/molecules/ErrorMessage";
 import FilterBar from "./components/organisms/FilterBar";
+import LoadingSpinner from "./components/molecules/LoadingSpinner";
 import MovieListing from "./components/organisms/MovieListing";
 import axios from "axios";
 
@@ -20,7 +33,9 @@ export default {
   name: "app",
   components: {
     AppHeader,
+    ErrorMessage,
     FilterBar,
+    LoadingSpinner,
     MovieListing
   },
   data() {
@@ -28,12 +43,13 @@ export default {
       movies: [],
       movieGenres: {},
       country: "GB",
-      selectedRating: 0
+      selectedRating: 0,
+      hasApiCallError: false,
+      apiCallErrorMsg: ""
     };
   },
   created: function() {
-    this.getMovieGenres();
-    this.getPopularMovies();
+    this.getMovieGenresAndMovies();
   },
   methods: {
     sortObjectBy(property) {
@@ -70,11 +86,11 @@ export default {
           _this.movies = results.reverse();
         })
         .catch(function(error) {
-          //Todo error fallback component
+          _this.hasApiCallError = true;
           console.log(error);
         });
     },
-    getMovieGenres() {
+    getMovieGenresAndMovies() {
       const _this = this;
       axios
         .get(
@@ -85,9 +101,10 @@ export default {
           for (let genre of genresArr) {
             _this.movieGenres[genre.id] = genre.name;
           }
+          _this.getPopularMovies();
         })
         .catch(function(error) {
-          //Todo error
+          _this.hasApiCallError = true;
           console.log(error);
         });
     }
@@ -109,5 +126,4 @@ body {
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
-
 </style>

@@ -2,7 +2,10 @@
   <div class="container">
     <transition name="fade">
       <div v-if="movieHasNoResults">
-        <ErrorMessage copy="No results 😢"/>
+        <ErrorMessage
+          copy="No results 😢"
+          gif="https://media.giphy.com/media/d2lcHJTG5Tscg/giphy.gif"
+        />
       </div>
     </transition>
     <transition-group tag="ul" class="movie-listing list-unstyled" name="fade">
@@ -13,14 +16,13 @@
         v-bind:posterUrl="movie.poster_path"
         v-bind:movieGenres="movie.genres"
       />
-    </transition-group>  
+    </transition-group>
   </div>
 </template>
 
 <script>
-import ErrorMessage from "../molecules/ErrorMessage"
+import ErrorMessage from "../molecules/ErrorMessage";
 import MovieCard from "../molecules/MovieCard";
-
 
 export default {
   components: {
@@ -34,7 +36,7 @@ export default {
   data() {
     return {
       movieHasNoResults: false
-    }
+    };
   },
   methods: {
     movieListToShow() {
@@ -44,7 +46,6 @@ export default {
       } else {
         let movies = [];
         for (let movie of this.movieList) {
-          console.log(movie.vote_average);
           if (movie.vote_average >= this.selectedRating) movies.push(movie);
         }
         this.movieHasNoResults = !(movies.length > 0);
