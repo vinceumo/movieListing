@@ -1,12 +1,18 @@
 <template>
   <div id="movieListingApp">
-    <AppHeader title="Films Showing in Cinemas"/>
-    <MovieListing v-if="movies.length" v-bind:movieList="movies" />
+    <AppHeader title="Films Showing in Cinemas" />
+    <FilterBar v-on:ratingValChange="getRatingValue" />
+    <MovieListing
+      v-if="movies.length"
+      v-bind:movieList="movies"
+      v-bind:selectedRating="parseInt(selectedRating)"
+    />
   </div>
 </template>
 
 <script>
 import AppHeader from "./components/organisms/AppHeader";
+import FilterBar from "./components/organisms/FilterBar";
 import MovieListing from "./components/organisms/MovieListing";
 import axios from "axios";
 
@@ -14,13 +20,15 @@ export default {
   name: "app",
   components: {
     AppHeader,
+    FilterBar,
     MovieListing
   },
   data() {
     return {
       movies: [],
       movieGenres: {},
-      country: "GB"
+      country: "GB",
+      selectedRating: 0
     };
   },
   created: function() {
@@ -34,6 +42,9 @@ export default {
           ? 0
           : +(a[property] > b[property]) || -1;
       };
+    },
+    getRatingValue(value) {
+      this.selectedRating = value;
     },
     getPopularMovies() {
       const _this = this;
@@ -90,4 +101,13 @@ export default {
 body {
   background-color: color(secondary, dark);
 }
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <li class="movie-card" v-bind:class="(posterUrl) ? 'has-poster' : ''">
+  <li class="movie-card" v-bind:class="posterUrl ? 'has-poster' : ''">
     <img
       v-if="posterUrl"
       v-bind:src="`https://image.tmdb.org/t/p/w200/${posterUrl}`"
@@ -39,10 +39,10 @@ export default {
   &.has-poster {
     .movie-card-content {
       margin-left: spacer(2);
-      
+
       h2 {
         background-color: color-gray(0);
-        padding: 0 .45rem .45rem;
+        padding: 0 0.45rem 0 0.45rem;
         line-height: 1.25;
         transform: translateX(-2rem);
       }
@@ -55,7 +55,7 @@ export default {
     width: 100px;
     border-radius: 20px;
 
-    @include min(bp(sm)) {
+    @include min(bp(md)) {
       width: 150px;
     }
   }
