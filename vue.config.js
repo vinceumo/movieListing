@@ -6,7 +6,8 @@ module.exports = {
     types.forEach(type =>
       addStyleResource(config.module.rule("scss").oneOf(type))
     );
-  }
+  },
+  publicPath: process.env.NODE_ENV === "production" ? "/movieListing/" : "/"
 };
 
 function addStyleResource(rule) {
