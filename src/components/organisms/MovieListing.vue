@@ -1,5 +1,10 @@
 <template>
   <div class="container">
+    <transition name="fade">
+      <div v-if="movieHasNoResults">
+        <ErrorMessage copy="No results 😢"/>
+      </div>
+    </transition>
     <transition-group tag="ul" class="movie-listing list-unstyled" name="fade">
       <MovieCard
         v-for="movie in movieListToShow()"
@@ -8,23 +13,18 @@
         v-bind:posterUrl="movie.poster_path"
         v-bind:movieGenres="movie.genres"
       />
-    </transition-group>
-    <transition name="fade">
-      <div v-if="movieHasNoResults">
-        <p>
-          No results
-        </p>
-        
-      </div>
-    </transition>
+    </transition-group>  
   </div>
 </template>
 
 <script>
-import MovieCard from "../molecules/MovieCard.vue";
+import ErrorMessage from "../molecules/ErrorMessage"
+import MovieCard from "../molecules/MovieCard";
+
 
 export default {
   components: {
+    ErrorMessage,
     MovieCard
   },
   props: {
