@@ -57,6 +57,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// This grid is by default using css grid layout and falback to flexbox in none supported browsers
 @supports (display: grid) {
   .movie-listing {
     display: grid;

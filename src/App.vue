@@ -91,7 +91,7 @@ export default {
         })
         .catch(function(error) {
           _this.hasApiCallError = true;
-          console.log(error);
+          //console.log(error);
         });
     },
     getMovieGenresAndMovies() {
@@ -109,7 +109,7 @@ export default {
         })
         .catch(function(error) {
           _this.hasApiCallError = true;
-          console.log(error);
+          //console.log(error);
         });
     }
   }
