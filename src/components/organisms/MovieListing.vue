@@ -5,7 +5,8 @@
       v-bind:key="movie.id"
       v-bind:title="movie.title"
       v-bind:posterUrl="movie.poster_path"
-      v-bind:popularity="movie.popularity"
+      v-bind:movieGenres="movie.genres"
+
     />
   </ul>
 </template>
@@ -18,7 +19,7 @@ export default {
     MovieCard
   },
   props: {
-    movieList: Array
+    movieList: Array,
   }
 };
 </script>

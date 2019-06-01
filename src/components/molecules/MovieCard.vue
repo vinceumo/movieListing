@@ -6,6 +6,13 @@
       v-bind:alt="`${title} poster`"
     />
     <h2>{{ title }}</h2>
+    <ul v-if="movieGenres.length">
+      <li 
+        v-for="(genre, index) in movieGenres"
+        v-bind:key="index">
+        {{ genre }}
+      </li>
+    </ul>
   </li>
 </template>
 
@@ -14,7 +21,7 @@ export default {
   props: {
     title: String,
     posterUrl: String,
-    genders: Array,
+    movieGenres: Array,
     popularity: Number
   }
 };
