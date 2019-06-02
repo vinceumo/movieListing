@@ -1,0 +1,26 @@
+// ------------------------------
+// Sass Variables
+// ------------------------------
+$color-prefix: --color-;
+$color-gray-prefix: --color-gray-;
+
+$color-themes-pulpfiction: (
+  "primary": (
+    "base": hsl(48, 87%, 55%),
+    "dark": hsl(48, 87%, 55% - 15),
+    "light": hsl(48, 87%, 55% + 15),
+    "contrast": hsl(0, 0%, 0%)
+  ),
+  "secondary": (
+    "base": hsl(2, 100%, 37% - 5),
+    "dark": hsl(2, 100%, 37%),
+    "light": hsl(2, 100%, 37%),
+    "contrast": hsl(0, 0%, 100%)
+  ),
+  "tertiary": (
+    "base": hsl(192, 24%, 8%),
+    "dark": hsl(192, 24%, 8% - 15),
+    "light": hsl(192, 24%, 8% + 15),
+    "contrast": hsl(0, 0%, 100%)
+  ),
+);

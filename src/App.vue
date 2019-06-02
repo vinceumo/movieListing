@@ -1,43 +1,62 @@
 <template>
-  <div id="movieListingApp">
-    <AppHeader title="Films Showing in Cinemas" />
-    <main>
-      <FilterBar v-on:ratingValChange="getRatingValue" />
-      <LoadingSpinner v-if="!hasApiCallError && movies.length === 0" />
-      <transition name="fade">
-        <div v-if="hasApiCallError">
-          <ErrorMessage
-            copy="There was an error, please try again"
-            gif="https://media.giphy.com/media/3ohzdYJK1wAdPWVk88/giphy.gif"
+  <div
+    id="movieListingApp"
+    v-bind:class="[
+      isDarkTheme ? 'is-dark-theme' : '',
+      `is-theme-${pickedTheme}`
+    ]"
+  >
+    <div class="page-wrapper">
+      <AppHeader title="Films Showing in Cinemas" />
+      <main>
+        <FilterBar v-on:ratingValChange="getRatingValue" />
+        <LoadingSpinner v-if="!hasApiCallError && movies.length === 0" />
+        <transition name="fade">
+          <div v-if="hasApiCallError">
+            <ErrorMessage
+              copy="There was an error, please try again"
+              gif="https://media.giphy.com/media/3ohzdYJK1wAdPWVk88/giphy.gif"
+            />
+          </div>
+          <MovieListing
+            v-if="movies.length"
+            v-bind:movieList="movies"
+            v-bind:selectedRating="parseInt(selectedRating)"
           />
-        </div>
-        <MovieListing
-          v-if="movies.length"
-          v-bind:movieList="movies"
-          v-bind:selectedRating="parseInt(selectedRating)"
-        />
-      </transition>
-    </main>
+        </transition>
+      </main>
+    </div>
+    <AppFooter>
+      <UiControls
+        v-on:onChangeIsDark="getIsDarkValue"
+        v-on:onChangePickedTheme="getPickedTheme"
+        v-bind:themes="themes"
+      />
+    </AppFooter>
   </div>
 </template>
 
 <script>
+import AppFooter from "./components/organisms/AppFooter";
 import AppHeader from "./components/organisms/AppHeader";
 import ErrorMessage from "./components/molecules/ErrorMessage";
 import FilterBar from "./components/organisms/FilterBar";
 import LoadingSpinner from "./components/molecules/LoadingSpinner";
 import MovieListing from "./components/organisms/MovieListing";
+import UiControls from "./components/molecules/UiControls";
 import axios from "axios";
 import cssVars from "css-vars-ponyfill";
 
 export default {
   name: "app",
   components: {
+    AppFooter,
     AppHeader,
     ErrorMessage,
     FilterBar,
     LoadingSpinner,
-    MovieListing
+    MovieListing,
+    UiControls
   },
   data() {
     return {
@@ -46,7 +65,10 @@ export default {
       country: "GB", // Todo implement country picker
       selectedRating: 0,
       hasApiCallError: false,
-      apiCallErrorMsg: ""
+      apiCallErrorMsg: "",
+      isDarkTheme: false,
+      themes: ["Avenger", "Sin City", "Pulp Fiction", "Alien"],
+      pickedTheme: "avenger"
     };
   },
   created: function() {
@@ -89,9 +111,8 @@ export default {
           }
           _this.movies = results.reverse();
         })
-        .catch(function(error) {
+        .catch(function() {
           _this.hasApiCallError = true;
-          //console.log(error);
         });
     },
     getMovieGenresAndMovies() {
@@ -107,10 +128,16 @@ export default {
           }
           _this.getPopularMovies();
         })
-        .catch(function(error) {
+        .catch(function() {
           _this.hasApiCallError = true;
-          //console.log(error);
         });
+    },
+    getIsDarkValue(value) {
+      this.isDarkTheme = value;
+    },
+    getPickedTheme(value) {
+      let theme = value.replace(/\s+/g, "");
+      this.pickedTheme = theme.toLowerCase();
     }
   }
 };
@@ -119,8 +146,12 @@ export default {
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css?family=Lato:400,400i,700|Righteous&display=swap");
 
-body {
+#movieListingApp {
   background-color: color(secondary, dark);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .fade-enter-active,

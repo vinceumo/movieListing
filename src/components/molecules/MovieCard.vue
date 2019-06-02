@@ -29,8 +29,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.is-dark-theme {
+  .movie-card {
+    background-color: color(secondary);
+
+    h2 {
+      color: color(secondary, contrast);
+    }
+
+    &.has-poster {
+      img {
+        filter: brightness(80%);
+      }
+      .movie-card-content {
+        h2 {
+          background-color: color(secondary);
+        }
+      }
+    }
+  }
+}
+
 .movie-card {
-  background-color: color-gray(0);
+  background-color: color(secondary, contrast);
   padding: spacer(3);
   border-radius: 20px;
   display: flex;
@@ -40,12 +61,14 @@ export default {
     .movie-card-content {
       margin-left: spacer(2);
       width: 100%;
+      position: relative;
 
       h2 {
-        background-color: color-gray(0);
+        background-color: color(secondary, contrast);
         padding: 0 0.45rem 0 0.45rem;
         line-height: 1.25;
-        transform: translateX(-2rem);
+        margin-left: -2rem;
+        //transform: translateX(-2rem);
       }
     }
   }

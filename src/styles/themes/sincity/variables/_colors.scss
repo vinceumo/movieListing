@@ -1,0 +1,26 @@
+// ------------------------------
+// Sass Variables
+// ------------------------------
+$color-prefix: --color-;
+$color-gray-prefix: --color-gray-;
+
+$color-themes-sincity: (
+  "primary": (
+    "base": hsl(349, 63%, 46%),
+    "dark": hsl(349, 63%, 46% - 15),
+    "light": hsl(349, 63%, 46% + 15),
+    "contrast": hsl(0, 0%, 100%)
+  ),
+  "secondary": (
+    "base": hsl(0, 0%, 15%),
+    "dark": hsl(0, 0%, 0%),
+    "light": hsl(0, 0%, 5% + 15),
+    "contrast": hsl(0, 0%, 100%)
+  ),
+  "tertiary": (
+    "base": hsl(0, 0%, 35%),
+    "dark": hsl(0, 0%, 35% - 15),
+    "light": hsl(0, 0%, 35% + 15),
+    "contrast": hsl(0, 0%, 100%)
+  ),
+);

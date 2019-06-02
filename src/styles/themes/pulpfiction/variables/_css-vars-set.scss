@@ -1,0 +1,16 @@
+// Set Default CSS Custom properties
+
+@if $use-css-var == true {
+  .is-theme-pulpfiction {
+    // Colors
+    @each $name, $color in $color-themes-pulpfiction {
+      @if type-of($color) == "map" {
+        @each $subname, $subcolor in $color {
+          #{$color-prefix}#{$name}-#{$subname}: $subcolor;
+        }
+      } @else if type-of($color) == "color" {
+        #{$color-prefix}#{$name}: $color;
+      }
+    }
+  }
+}

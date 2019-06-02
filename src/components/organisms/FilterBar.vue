@@ -1,11 +1,13 @@
 <template>
-  <div class="container filter-bar">
-    <label for="ratingFilter">Filter by ratings above: </label>
-    <select id="ratingFilter" v-on:change="emitRatingValue">
-      <option v-for="n in 11" v-bind:key="n - 1" v-bind:value="n - 1">
-        {{ n - 1 }}
-      </option>
-    </select>
+  <div class="container">
+    <div class="filter-bar">
+      <label for="ratingFilter">Filter by ratings above: </label>
+      <select id="ratingFilter" v-on:change="emitRatingValue">
+        <option v-for="n in 11" v-bind:key="n - 1" v-bind:value="n - 1">
+          {{ n - 1 }}
+        </option>
+      </select>
+    </div>
   </div>
 </template>
 
