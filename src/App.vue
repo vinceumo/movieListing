@@ -98,20 +98,16 @@ export default {
         )
         .then(function(response) {
           let results = response.data.results;
-          results = results.sort(_this.sortObjectBy("popularity")); // Output films from low to high popularity
-          for (let result of results) {
-            let genreArr = [];
+          
+          results.forEach(result => {
+            result.genres = result.genre_ids.map(id => _this.movieGenres[id]);
+          });
 
-            for (let genreId of result.genre_ids) {
-              genreId = _this.movieGenres[genreId];
-              genreArr.push(genreId);
-            }
-
-            result.genres = genreArr;
-          }
-          _this.movies = results.reverse();
+          _this.movies = results.sort(_this.sortObjectBy("popularity"))
+            .reverse(); // Output films from low to high popularity
         })
-        .catch(function() {
+        .catch(function(err) {
+          console.log(err)
           _this.hasApiCallError = true;
         });
     },
@@ -158,7 +154,8 @@ export default {
 .fade-leave-active {
   transition: opacity 0.5s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
 </style>

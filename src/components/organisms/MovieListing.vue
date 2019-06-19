@@ -44,12 +44,11 @@ export default {
         this.movieHasNoResults = !(this.movieList.length > 0);
         return this.movieList;
       } else {
-        let movies = [];
-        for (let movie of this.movieList) {
-          if (movie.vote_average >= this.selectedRating) movies.push(movie);
-        }
-        this.movieHasNoResults = !(movies.length > 0);
-        return movies;
+        const moviesToShow = this.movieList.filter(movie => movie.vote_average >= this.selectedRating)
+
+        this.movieHasNoResults = !(moviesToShow.length > 0);
+        ;
+        return moviesToShow
       }
     }
   }
